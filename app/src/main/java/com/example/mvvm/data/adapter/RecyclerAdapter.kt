@@ -4,13 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm.R
-import com.example.mvvm.data.model.AddressModel
-import com.example.mvvm.data.model.CompanyModel
 import com.example.mvvm.data.model.UsersModel
-import kotlinx.android.synthetic.main.activity_main.view.*
 import java.lang.IllegalArgumentException
 import kotlinx.android.synthetic.main.users_content.view.*
 

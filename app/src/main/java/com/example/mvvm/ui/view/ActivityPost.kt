@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm.R
@@ -42,13 +41,13 @@ class ActivityPost : AppCompatActivity(), RecyclerAdapterPosts.OnPostClickListen
     }
 
     private fun fillRecyclerView(){
-        postsViewModel.postsModel.observe(this, Observer {
+        postsViewModel.postsModel.observe(this, {
             postList = it
             if (!postList.isNullOrEmpty()){
                 postsRecyclerView.adapter = RecyclerAdapterPosts(this,postList)
             }
         })
-        postsViewModel.isLoading.observe(this, Observer {
+        postsViewModel.isLoading.observe(this, {
             progress_posts.isVisible = it
             //tv_empty_post.isVisible = it
         })

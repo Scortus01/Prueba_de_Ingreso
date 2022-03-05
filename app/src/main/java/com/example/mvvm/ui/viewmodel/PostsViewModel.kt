@@ -20,7 +20,7 @@ class PostsViewModel : ViewModel() {
             val result = getPostsUseCase(id)
 
             if (!result.isNullOrEmpty()) {
-                postsModel.postValue(result!!)
+                postsModel.postValue(result)
                 isLoading.postValue(false)
             }
         }

@@ -20,7 +20,7 @@ class UsersViewModel : ViewModel() {
             val result = getUsersUseCase()
 
             if (!result.isNullOrEmpty()) {
-                usersModel.postValue(result!!)
+                usersModel.postValue(result)
                 isLoading.postValue(false)
             }
         }

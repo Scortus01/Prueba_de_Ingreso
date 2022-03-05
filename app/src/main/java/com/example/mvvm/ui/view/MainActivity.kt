@@ -3,10 +3,8 @@ package com.example.mvvm.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm.R
@@ -25,9 +23,7 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnUserClickListener,
     private lateinit var usersRecyclerView: RecyclerView
     private lateinit var usersSearchText: androidx.appcompat.widget.SearchView
     private var usersList: List<UsersModel> = emptyList()
-    private var usersListLocal: List<UsersModel> = emptyList()
     private val userViewModel: UsersViewModel by viewModels()
-    private var isLocal = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,18 +35,16 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnUserClickListener,
         checkLocalData()
     }
 
-    private fun checkLocalData(){
-        usersListLocal = getAllUsersSQLite()
-        isLocal = if(usersListLocal.isNullOrEmpty()) {
+    private fun checkLocalData() {
+        usersList = getAllUsersSQLite()
+        if (!usersList.isNullOrEmpty()) {
+            fillRecyclerViewLocalData(usersList)
+        } else {
             fillRecyclerViewAPIRest()
-            true
-        } else{
-            fillRecyclerViewLocalData(usersListLocal)
-            false
         }
     }
 
-    private fun initVariables(){
+    private fun initVariables() {
         usersRecyclerView = rv_users
         usersSearchText = sv_users
         usersSearchText.setOnQueryTextListener(this)
@@ -59,52 +53,42 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnUserClickListener,
         userViewModel.onCreate()
     }
 
+    /**
+     *
+     */
     private fun fillRecyclerViewLocalData(localData: List<UsersModel>) {
         usersRecyclerView.adapter = RecyclerAdapter(this, this, localData)
     }
 
-    private fun fillRecyclerViewAPIRest(){
-        userViewModel.usersModel.observe(this, Observer {
+    private fun fillRecyclerViewAPIRest() {
+        userViewModel.usersModel.observe(this, {
             usersList = it
-            if (!usersList.isNullOrEmpty()){
+            if (!usersList.isNullOrEmpty()) {
                 setQuery(usersList)
                 usersRecyclerView.adapter = RecyclerAdapter(this, this, usersList)
             }
         })
-        userViewModel.isLoading.observe(this, Observer {
+        userViewModel.isLoading.observe(this, {
             progress.isVisible = it
         })
     }
 
-    private fun filterByName(query: String): List<UsersModel>{
+    private fun filterByName(query: String): List<UsersModel> {
 
-        return if (isLocal){
-            filterByDataType(usersListLocal, query)
-        }else{
-            filterByDataType(usersList, query)
-        }
-
-    }
-
-    private fun filterByDataType(data: List<UsersModel>, query: String): List<UsersModel>{
-
-        val listFilter = data.filter {
+        return usersList.filter {
             it.name.lowercase(Locale.getDefault()).contains(query.lowercase(Locale.getDefault()))
         }
-        if (listFilter.isNullOrEmpty()) tv_empty_.visibility = View.VISIBLE
-        else tv_empty_.visibility = View.INVISIBLE
-        return listFilter
     }
 
     private fun setQuery(usersList: List<UsersModel>) {
         val database = DBHelper(this, null)
-        for (data in usersList){
+        for (data in usersList) {
             database.addUser(data)
         }
     }
 
-    private fun getAllUsersSQLite(): List<UsersModel>{
-        var user : MutableList<UsersModel> = arrayListOf()
+    private fun getAllUsersSQLite(): List<UsersModel> {
+        val user: MutableList<UsersModel> = arrayListOf()
         val database = DBHelper(this, null)
         val data = database.getAllUsers()
         if (data!!.moveToFirst()) {
@@ -140,10 +124,10 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnUserClickListener,
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        if (!newText.isNullOrEmpty() && !usersList.isNullOrEmpty()){
+        if (!newText.isNullOrEmpty() && !usersList.isNullOrEmpty()) {
             usersRecyclerView.adapter = RecyclerAdapter(this, this, filterByName(newText))
-        }else{
-            usersRecyclerView.adapter = RecyclerAdapter(this, this, usersListLocal)
+        } else {
+            usersRecyclerView.adapter = RecyclerAdapter(this, this, usersList)
         }
         return false
     }

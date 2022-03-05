@@ -5,7 +5,7 @@ import com.example.mvvm.data.model.PostsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PostService() {
+class PostService {
     private val retrofit = RetrofitHelper.getRetrofit()
 
     suspend fun getPosts(id : Int): List<PostsModel> {

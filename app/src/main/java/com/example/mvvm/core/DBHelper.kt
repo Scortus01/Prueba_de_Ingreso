@@ -37,8 +37,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         // this method is to check if table already exists
-        db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE_NAME)
-        db.execSQL("DROP TABLE IF EXISTS " + POST_TABLE_NAME)
+        db.execSQL("DROP TABLE IF EXISTS $USER_TABLE_NAME")
+        db.execSQL("DROP TABLE IF EXISTS $POST_TABLE_NAME")
         onCreate(db)
     }
 
