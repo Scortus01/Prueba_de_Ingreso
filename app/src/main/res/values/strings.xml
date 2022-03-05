@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Prueba de Ingreso</string>
+    <string name="view_post">VER PUBLICACIONES</string>
+    <string name="search_user">Buscar usuario</string>
+    <string name="list_empty">List is empty</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="users">Usuarios</string>
+    <string name="posts">Publicaciones</string>
+    <string name="userid">userId: </string>
+    <string name="id">id: </string>
+    <string name="title">title</string>
+    <string name="body">body: </string>
+    <string name="back">Volver</string>
+</resources>
