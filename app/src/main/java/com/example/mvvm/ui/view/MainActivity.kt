@@ -16,6 +16,10 @@ import com.example.mvvm.ui.viewmodel.UsersViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
+/**
+ * Clase principal donde se muestra la interfaz grafica de las publicaciones
+ * genera la lógica para el funcionamiento de los datos de las publicaciones
+ */
 class MainActivity : AppCompatActivity(), RecyclerAdapter.OnUserClickListener,
     androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
@@ -53,9 +57,6 @@ class MainActivity : AppCompatActivity(), RecyclerAdapter.OnUserClickListener,
         userViewModel.onCreate()
     }
 
-    /**
-     *
-     */
     private fun fillRecyclerViewLocalData(localData: List<UsersModel>) {
         usersRecyclerView.adapter = RecyclerAdapter(this, this, localData)
     }

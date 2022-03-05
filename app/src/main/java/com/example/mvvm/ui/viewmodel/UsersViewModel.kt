@@ -7,6 +7,9 @@ import com.example.mvvm.data.model.UsersModel
 import com.example.mvvm.domain.GetUsersUseCase
 import kotlinx.coroutines.launch
 
+/**
+ * Clase encargada de almacenar los usuarios obtenidos dentro de una MutableList
+ */
 class UsersViewModel : ViewModel() {
 
     val usersModel = MutableLiveData<List<UsersModel>>()

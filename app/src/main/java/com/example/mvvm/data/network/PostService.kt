@@ -5,6 +5,9 @@ import com.example.mvvm.data.model.PostsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Clase encargada de hacer la instancia del helper de retrofit y obtener las publicaciones
+ */
 class PostService {
     private val retrofit = RetrofitHelper.getRetrofit()
 

@@ -10,6 +10,10 @@ import com.example.mvvm.data.model.PostsModel
 import kotlinx.android.synthetic.main.posts_content.view.*
 import java.lang.IllegalArgumentException
 
+
+/**
+ * Clase encargada de adaptar la información obtenida de las publicaciones en la interfaz gráfica
+ */
 class RecyclerAdapterPosts(
     private val context: Context,
     private val listPosts: List<PostsModel>

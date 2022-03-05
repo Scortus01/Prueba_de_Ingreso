@@ -7,6 +7,9 @@ import com.example.mvvm.data.model.PostsModel
 import com.example.mvvm.domain.GetPostsUseCase
 import kotlinx.coroutines.launch
 
+/**
+ * Clase encargada de almacenar las publicaciones obtenidas dentro de una MutableList
+ */
 class PostsViewModel : ViewModel() {
 
     val postsModel = MutableLiveData<List<PostsModel>>()

@@ -10,6 +10,9 @@ import com.example.mvvm.data.model.UsersModel
 import java.lang.IllegalArgumentException
 import kotlinx.android.synthetic.main.users_content.view.*
 
+/**
+ * Clase encargada de adaptar la información obtenida de los usuarios en la interfaz gráfica
+ */
 class RecyclerAdapter(
     private val context: Context,
     private val itemClickListener: OnUserClickListener,

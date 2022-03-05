@@ -5,6 +5,9 @@ import com.example.mvvm.data.model.UsersModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Clase encargada de hacer la instancia del helper de retrofit y obtener los usuarios
+ */
 class UserService {
     private val retrofit = RetrofitHelper.getRetrofit()
 
